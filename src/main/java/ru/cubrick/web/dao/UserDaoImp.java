@@ -20,17 +20,25 @@ public class UserDaoImp implements UserDao {
     }
 
     @Override
+    public User findById(long id) {
+        return em.find(User.class, id);
+    }
+
+    @Override
     public void persist(User user) {
         em.persist(user);
     }
 
     @Override
-    public void update(User user, String name, String email) {
-        em.merge(user);
+    public void update(long id, User user) {
+        User u = em.find(User.class, id);
+        u.setName(user.getName());
+        u.setEmail(user.getEmail());
+        em.merge(u);
     }
 
     @Override
-    public void remove(User user) {
-        em.remove(user);
+    public void remove(Long id) {
+        em.remove(em.find(User.class, id));
     }
 }

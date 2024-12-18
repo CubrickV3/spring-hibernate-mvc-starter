@@ -24,6 +24,11 @@ public class UserServiceImp implements UserService {
         return userDao.findAll();
     }
 
+    @Override
+    public User findById(long id) {
+        return userDao.findById(id);
+    }
+
     @Transactional
     @Override
     public void persist(User user) {
@@ -32,13 +37,13 @@ public class UserServiceImp implements UserService {
 
     @Transactional
     @Override
-    public void update(User user, String name, String email) {
-        userDao.update(user, name, email);
+    public void update(long id, User user) {
+        userDao.update(id, user);
     }
 
     @Transactional
     @Override
-    public void remove(User user) {
-        userDao.remove(user);
+    public void remove(Long id) {
+        userDao.remove(id);
     }
 }

@@ -5,7 +5,8 @@ import java.util.List;
 
 public interface UserService {
     List<User> findAll();
+    User findById(long id);
     void persist(User user);
-    void update(User user, String name, String email);
-    void remove(User user);
+    void update(long id, User user);
+    void remove(Long id);
 }

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
     <title>Users</title>
@@ -13,6 +13,8 @@
         <th scope="col">Id</th>
         <th scope="col">Name</th>
         <th scope="col">email</th>
+        <th scope="col">edit</th>
+        <th scope="col">Delete</th>
     </tr>
     </thead>
     <tbody>
@@ -20,10 +22,18 @@
         <td th:text="${user.id}"></td>
         <td th:text="${user.name}"></td>
         <td th:text="${user.email}"></td>
+        <td>
+            <a th:href="@{/users/{id}(id=${user.getId()})}">Edit User</a>
+        </td>
+        <td>
+            <form th:method="DELETE" th:action="@{/users/{id}(id=${user.getId()})}">
+                <input type="submit" value="Delete"/>
+            </form>
+        </td>
     </tr>
     </tbody>
 </table>
 <br/>
-<a href="/new_user">Create new User!</a>
+<a href="users/new_user">Create new User!</a>
 </body>
 </html>
