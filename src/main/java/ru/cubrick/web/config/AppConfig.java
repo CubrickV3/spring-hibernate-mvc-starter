@@ -25,6 +25,7 @@ import java.util.Properties;
 public class AppConfig {
 
     private final Environment environment;
+
     @Autowired
     public AppConfig(Environment environment) {
         this.environment = environment;
@@ -48,7 +49,6 @@ public class AppConfig {
         factoryBean.setPackagesToScan("ru.cubrick.web");
         HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
         factoryBean.setJpaVendorAdapter(vendorAdapter);
-        Properties props = new Properties();
 
         factoryBean.setJpaProperties(getHibernateProperties());
         return factoryBean;
@@ -58,16 +58,15 @@ public class AppConfig {
     public JpaTransactionManager getTransactionManager() {
         JpaTransactionManager jtm = new JpaTransactionManager();
         jtm.setEntityManagerFactory(getEntityManagerFactory().getObject());
-
         return jtm;
     }
 
     private Properties getHibernateProperties() {
         Properties props = new Properties();
-        props.getProperty("hibernate.dialect");
-        props.getProperty("hibernate.show_sql");
-        props.getProperty("hibernate.hbm2ddl.auto");
-        props.getProperty("hibernate.format_sql");
+        props.put("hibernate.dialect", environment.getProperty("hibernate.dialect"));
+        props.put("hibernate.show_sql", environment.getProperty("hibernate.show_sql"));
+        props.put("hibernate.format_sql", environment.getProperty("hibernate.format_sql"));
+        props.put("hibernate.hbm2ddl.auto", environment.getProperty("hibernate.hbm2ddl.auto"));
         return props;
     }
 }
